@@ -66,7 +66,7 @@ We can add more letters and more messages to this sequence to make it more and m
 
 This is called the "Two Generals' Problem" in computer science literature and was first published [in a 1975 paper](http://hydra.infosys.tuwien.ac.at/teaching/courses/AdvancedDistributedSystems/download/1975_Akkoyunlu,%20Ekanadham,%20Huber_Some%20constraints%20and%20tradeoffs%20in%20the%20design%20of%20network%20communications.pdf). The general result of a rigourous analysis of the problem is that it is unsolveable.
 
-{%youtube IP-rGJKSZ3s %}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IP-rGJKSZ3s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 How is this related to TCP, you might ask! Well, unlike UDP, TCP tries to guarantee reliability and ordering for the messages transmitted. Since the networks TCP operates on are not guaranteed to be reliable themselves, in order to guarantee reliability TCP has to address this "Two Generals' Problem".
 
