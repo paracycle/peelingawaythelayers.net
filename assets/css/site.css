@@ -1,0 +1,115 @@
+---
+---
+/* Front matter is necessary for Jekyll */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Lato:wght@400;700&display=swap');
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* Write your styles below this line. */
+
+body {
+  font-size: 18px;
+  @apply font-body subpixel-antialiased max-w-4xl mx-auto shadow-xl bg-off-white;
+}
+
+main {
+  @apply p-8 bg-white;
+}
+
+section {
+  @apply text-justify;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-forest-green;
+}
+
+h1 {
+  @apply text-3xl my-6 text-center;
+}
+
+h2 {
+  @apply text-2xl my-4;
+}
+
+h3 {
+  @apply text-lg my-2;
+}
+
+a {
+  @apply text-blue-600 underline;
+}
+
+nav {
+  @apply flex items-center justify-between flex-wrap bg-forest-green p-6;
+
+  .title {
+    @apply flex items-center flex-shrink-0 mr-6;
+    a {
+      @apply text-white no-underline;
+    }
+    span {
+      @apply font-semibold text-2xl tracking-tight;
+    }
+  }
+
+  .menu-icon {
+    @apply block outline-none;
+
+    @screen lg {
+      @apply hidden;
+    }
+  }
+
+  .menu  {
+    @apply w-full block flex-grow text-sm mt-4;
+
+    @screen lg {
+      @apply flex -ml-2;
+    }
+  }
+}
+
+p {
+  @apply my-3;
+}
+
+img, iframe {
+  @apply rounded mx-auto my-6;
+}
+
+ol, ul {
+  @apply pl-8;
+
+  & li {
+    @apply my-4;
+  }
+}
+
+ol {
+  @apply list-decimal;
+}
+
+ul {
+  @apply list-disc;
+}
+
+table {
+  @apply table-auto border-collapse border-forest-green border-2 text-center mx-auto;
+
+  & td, & th {
+    @apply border px-4 py-2;
+  }
+}
+
+p code {
+  @apply text-base bg-gray-200 font-medium rounded-md px-2;
+}
+
+pre code {
+
+}
+/* Write your styles above this line. */
+
+@tailwind utilities;

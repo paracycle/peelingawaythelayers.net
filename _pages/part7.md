@@ -1,5 +1,5 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 7 - Conclusion
+title: Conclusion
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---

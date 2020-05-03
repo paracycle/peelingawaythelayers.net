@@ -1,5 +1,5 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 3 - Layers 1 and 2
+title: Physical and Data-Link Layers
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---
@@ -48,7 +48,7 @@ The data-link layer is when things start getting interesting. Now that we have a
 
 For this reason, at this layer, we start assigning addresses to our endpoints. For Ethernet networks or networks in the same family, these addresses are what are called the MAC (Medium Access Control) addresses. Traditionally MAC addresses are physical identifiers that comes encoded into a physical network card. Each maker of a network card (or a network card chip) has a unique prefix identifier and then they add a unique number behind that prefix to construct a unique number for each of the network cards/devices they produce. Thus, each network endpoint on an Ethernet network comes pre-installed with a unique address.
 
-The protocols on the data-link layer allow communication to happen between one node with a unique MAC address and another node with another MAC address. The layer is also responsible for doing error correction for the data packets that are sent and received. 
+The protocols on the data-link layer allow communication to happen between one node with a unique MAC address and another node with another MAC address. The layer is also responsible for doing error correction for the data packets that are sent and received.
 
 If there is a hub in the network that is still operating in our network, our signals will still be broadcasted to all the network. However, now that we are addressing our communication to a particular endpoint, other nodes will know to drop our packages since the message was not intended for them.
 

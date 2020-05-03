@@ -1,5 +1,5 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 1 - Intro
+title: Communication
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---

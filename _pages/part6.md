@@ -1,12 +1,12 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 6 - Layers 5, 6 and 7
+title: Application Layer
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---
 
 # Part 6 - Finally the Application Layer
 
-As we noted at the end of the previous part, the final 3 layers of the OSI model most commonly don't exist as separate layers. At least in the TCP/IP stack, the responsibility of the Session Layer is handed off to the Transport Layer and Presentation Layer becomes a part of the Application Layer. 
+As we noted at the end of the previous part, the final 3 layers of the OSI model most commonly don't exist as separate layers. At least in the TCP/IP stack, the responsibility of the Session Layer is handed off to the Transport Layer and Presentation Layer becomes a part of the Application Layer.
 
 Thus, we will directly skip over Session and Presentation layers into Layer 7, the Application Layer.
 
@@ -15,7 +15,7 @@ Thus, we will directly skip over Session and Presentation layers into Layer 7, t
 This layer is the top most layer of the OSI model and is the layer where protocols that are closest to the user are defined. The reason this layer is called the Application Layer is because the messages that this layer deals with come directly from applications running on a computer system.
 
 Common examples of application layer protocols that run on the TCP/IP stack are:
- 
+
 - Domain Name System (DNS)
 - File Transfer Service (FTP)
 - Hypertext Transfer Service (HTTP)
@@ -51,7 +51,7 @@ In HTTP, each request starts with a request line with a `Verb`, a `Resource Path
 
 Once the HTTP server decides the request is finished, it processes the request and generates a response which starts with a status line that includes a `Status Code` and `Reason` message. Then some response headers follow the response line, and, similar to the request, following an empty line after the headers, an optional response body is sent back to the client.
 
-HTTP is a resource-oriented protocol, thus all the requests are actually requests to perform a specific action (that is specified by the `Verb` in the request line) or the given resource (that is specified by the `Resource Path`). 
+HTTP is a resource-oriented protocol, thus all the requests are actually requests to perform a specific action (that is specified by the `Verb` in the request line) or the given resource (that is specified by the `Resource Path`).
 
 To make this concrete, let's work through a case where Alice wants to get a list of all widgets provided by Bob via HTTP. Alice would have to know the domain name of Bob's HTTP server and the resource path for the widgets as hosted on Bob's HTTP server. We can represent the two things using a single identifier we call the URL, though.
 
@@ -140,7 +140,7 @@ For Rails applications, this next server is what is called an "application serve
 
 ## Rack
 
-The way an application server talks to a Rails application, or to any Ruby application, for that matter, is standardized in the Rack server interface protocol. 
+The way an application server talks to a Rails application, or to any Ruby application, for that matter, is standardized in the Rack server interface protocol.
 
 When an application server receives a request, like Alice's `POST /widgets` request, the application server parses all the parts of the request, places them in Ruby `Hash` called the `Environment` and passes it to the Ruby application that the application server has booted.
 
@@ -184,5 +184,3 @@ Finally, Rails. Rails is framework that is built on top of Rack and is layers an
 # Next Steps
 
 In the [next and final part of this series](/mexl0XuyQNy7o17_4CpyHA), we will recap all the things we covered throughout these series, talk a little bit about why all of this is important and provide links to some tools you might want to use if and when you want to dive deep into these layers.
-
-

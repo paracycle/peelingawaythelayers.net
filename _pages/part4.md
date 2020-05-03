@@ -1,5 +1,5 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 4 - Layers 3
+title: Network Layer
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---
@@ -10,7 +10,7 @@ In the previous part of the series, we were able to link computers up via some p
 
 So far, though, we are still locked into our local network. All the computers we can communicate with need to be a part of our network so that we can send them our data frames.
 
-Obviously, that is not a feasible thing to do. We can't realistically aim to connect all the computers into a single network to be able to do any kind of communication. What we can do, though, is to connect different networks together to create a bigger network. :bulb: 
+Obviously, that is not a feasible thing to do. We can't realistically aim to connect all the computers into a single network to be able to do any kind of communication. What we can do, though, is to connect different networks together to create a bigger network. :bulb:
 
 While that is physically an easy thing to do (just run a cable between different networks), if we still tried to act like we were all on a single local network, the system would collapse. Everyone would be sending data frames around all the networks addressed to other MAC addresses and until the switches learned which addresses were connected to which ports, the system would quickly grind to a halt.
 
@@ -20,13 +20,13 @@ We need to do better, we need another layer on top of the data-link layer to pro
 
 As we motivated in the preamble for this post, we need a higher layer to address and route traffic from one node on one local network to another node on another network. Going back to our postal service analogy, note how this is very similar to how each country has their own postal service with its rules and regulations, but our mail makes it through different countries postal networks without any concern. The reason for that for postal services is because each country has agreed to coordinate their mail delivery efforts and have standardized ways in which to route mail across this network of networks. We aim to do something similar for the Network Layer in our network stack too.
 
-The basic requirements of the Network Layer are some form of unified addressing, some routing and traffic control, and a data unit on the Network Layer is called a "packet". 
+The basic requirements of the Network Layer are some form of unified addressing, some routing and traffic control, and a data unit on the Network Layer is called a "packet".
 
 The Internet Protocol (IP) is the most common example of a Network Layer protocol. IP has two versions:
 1. IPv4 which still routes most of the traffic on the Internet today, and
 2. IPv6 which is the successor of IPv4 and superceeds it in many ways. However, this version still does not have widespread adoption.
 
-The IP that you are probably most familiar with is IPv4, so we will be talking specifically about that. 
+The IP that you are probably most familiar with is IPv4, so we will be talking specifically about that.
 
 Let's start going over each functionality provided by the Network Layer by investigating them in IP.
 
@@ -115,7 +115,7 @@ Ok, so far so good. But there is one huge thing we didn't explain yet. The netwo
 
 The answer is discovery of IP address to MAC address mapping using a protocol called Address Resolution Protocol (ARP, for short). In a nutshell, whenever Alice wants to send data to Dolores's IP address, Alice looks up her ARP Table for an entry for `192.168.1.20`. If there is an entry, then that would be Dolores's machine's MAC address, so the data gets sent there.
 
-If there is no entry in the ARP table for `192.168.1.20`, then a broadcast ARP message is sent on the network that basically says: 
+If there is no entry in the ARP table for `192.168.1.20`, then a broadcast ARP message is sent on the network that basically says:
 > Whoever has the IP address `192.168.1.20`, can you please respond back with your MAC address? Kthxbye
 
 Upon receiving this ARP message, all computers on Alice's network ignore it except for Dolores's machine. Dolores's machine responds to Alice with a message saying:
@@ -203,7 +203,7 @@ Before we leave the network layer, there is one last protocol that operates at t
 
 ICMP is a part of the Internet protocol suite and defines a mechanism for providing control or diagnostic on the network.
 
-The simplest example of an ICMP message is the `Echo Request` message. When a network node sends an ICMP `Echo Request` to another node's IP address, the receiver will send back an ICMP `Echo Response` message. This is a very simple ping-pong mechanism built into the IP network layer and you have probably used this a million times already, it is how `ping` works. :smile: 
+The simplest example of an ICMP message is the `Echo Request` message. When a network node sends an ICMP `Echo Request` to another node's IP address, the receiver will send back an ICMP `Echo Response` message. This is a very simple ping-pong mechanism built into the IP network layer and you have probably used this a million times already, it is how `ping` works. :smile:
 
 Every time you do a `ping 8.8.8.8`, your machine is sending an ICMP `Echo Request` message to the machine at IP address `8.8.8.8`. An when `8.8.8.8` receives our request, it sends an `Echo Response` message back to our machine. Thus, the `ping` command can calculate the difference between when it sent the initial message and when it received the reply to calculate a roundtrip time. There is no magic in what `ping` does, it just operates at Layer 3 of the network stack.
 
@@ -221,11 +221,11 @@ PING 8.8.8.8 (8.8.8.8): 56 data bytes
 round-trip min/avg/max/stddev = 114.569/118.367/123.910/3.252 ms
 ```
 
-Remember how we talked about `Time to Live` (TTL) above and how we said that if TTL ever gets to `0`, the source address is sent a message. Yes, that message is also in ICMP format and is called the ICMP `Time Exceeded` message. When a sender receives an ICMP `Time Exceeded` message, it knows which router dropped the packet and which packet it was. Did you ever wonder how `traceroute` (`tracert` on Windows) worked? Well now you know. 
+Remember how we talked about `Time to Live` (TTL) above and how we said that if TTL ever gets to `0`, the source address is sent a message. Yes, that message is also in ICMP format and is called the ICMP `Time Exceeded` message. When a sender receives an ICMP `Time Exceeded` message, it knows which router dropped the packet and which packet it was. Did you ever wonder how `traceroute` (`tracert` on Windows) worked? Well now you know.
 
 When you do `traceroute -n 8.8.8.8`, your machine sends an ICMP `Echo Request` packet addressed to `8.8.8.8` with the TTL field set to `1`. When your default gateway (which is the next hop on the route), gets that packet, it decrements the TTL field to `0` and decides to drop the packet. But it also sends an ICMP `Time Exceeded` message to your computer. `traceroute` catches that message and displays which IP address it came from.
 
-Next, `traceroute` sends another ICMP `Echo Request` packet towards `8.8.8.8` 
+Next, `traceroute` sends another ICMP `Echo Request` packet towards `8.8.8.8`
 but this time with TTL set to `2`. Now, the packet will be dropped at the hop after our default gateway and we will receive a message from that router. `traceroute` will show us the IP address of that host.
 
 And this will go on and on until the TTL is long enough for the packet to reach `8.8.8.8` upon which our computer will get an ICMP `Echo Response` packet back and `traceroute` knows we've reached to host.

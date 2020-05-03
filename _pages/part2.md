@@ -1,5 +1,5 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 2 - The Stack
+title: The Stack
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---
@@ -58,4 +58,3 @@ The OSI model does not propose any concrete implementation for how each layer sh
 However, before we do that, this is a good place to mention that the HTTP over TCP/IP over Ethernet/Wifi that is we use below most of our Rails applications can also be considered a concrete implementation of the OSI model. For that reason, we will be referring more to the TCP/IP stack when diving into the network stack.
 
 In [part 3](/aS84qY2YS9ypZTF1HBuE2Q) we will start building the layers from ground up.
-

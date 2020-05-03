@@ -1,5 +1,5 @@
 ---
-title: RailsConf 2020 Talk Blog Post - Part 5 - Layer 4
+title: Transport Layer
 description: RailsConf 2020 Talk Blog Post
 tags: RailsConf 2020, Blogpost, Talk
 ---
@@ -42,7 +42,7 @@ At the transport layer, we see the introduction of the concept of a `Port`. A po
 
 That is why we need the source and destination ports in the header. Notice that port addresses can range from 0 to 65,535, since they are encoded by 2 bytes.
 
-Next up is the length of the whole datagram including the header and the payload. Since this is also a 2 byte value, the maximum theoretical data we can send is 65,535 minus the size of the header, 8 bytes, which equals 65,527 bytes. 
+Next up is the length of the whole datagram including the header and the payload. Since this is also a 2 byte value, the maximum theoretical data we can send is 65,535 minus the size of the header, 8 bytes, which equals 65,527 bytes.
 
 Finally, we have a 16-bit (2 byte) checksum of the data that ensures the integrity of the data carried by the datagram. Remember how the network layer and IPv4, specifically, didn't guarantee the integrity of the payload? Using the checksum in our UDP messages, we can make sure that the data we sent to the remote party makes it there without any changes.
 
@@ -58,7 +58,7 @@ As opposed to the simplicity of UDP, TCP is a monstrously complex protocol. The 
 
 One of the biggest problems in computer science is how to reliably communicate over an unreliable channel. To make that concrete, let's go back to our postal service example. You can to communicate with your friend and agree on a date and time to meet somewhere. Suppose, only way you can communicate is by sending each other letters or postcards through the postal service. How can you reliably guarantee to set an agreed date and time for your meeting? The simple answer is you can't, since there is always a chance that your letters might get lost and never arrive.
 
-Imagine this, if your initial letter proposing a date/time is lost in the system, will your friend even know about your desire to meet, let alone the particular date/time you've proposed? 
+Imagine this, if your initial letter proposing a date/time is lost in the system, will your friend even know about your desire to meet, let alone the particular date/time you've proposed?
 
 On the other hand, maybe they did receive your letter and accepted the date/time you proposed and responded with another letter to that effect, but, maybe that letter got lost in the system. They are now thinking that you have both agreed and are meeting, but as far as you are concerned, you never got an acknowledgment from your friend so the meeting is not on.
 
@@ -119,5 +119,3 @@ There are still some aspects of TCP that we haven't mentioned here, like flow co
 ## Next Part
 
 In the [next part of the series](/wBiVlQOyThmZwBYpZLi5-g), we will finally get a chance to talk about the final 3 layers of the network stack. Despite being separate layers in the OSI model, most of the time the final three layers are all collapsed into Layer 7, the Application Layer, with the responsbilities of the layers in between divided up into lower or higher layers.
-
-
