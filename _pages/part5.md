@@ -1,6 +1,6 @@
 ---
-title: Transport Layer
-description: RailsConf 2020 Talk Blog Post
+title: Transport
+description: A look at layer 4 of the network stack. How can we transmit data between computers with different delivery guarantees?
 tags: RailsConf 2020, Blogpost, Talk
 ---
 

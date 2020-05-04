@@ -1,32 +1,63 @@
+{% assign isShort = include.height == "short" %}
+{% unless isShort %}
+  {% assign aClasses = "w-full h-64 justify-center flex-col align-middle items-center" %}
+  {% assign svgClasses = "h-20 w-20 block" %}
+  {% assign tallSpanClasses = "text-4xl text-center" %}
+{% else %}
+  {% assign aClasses = "flex-grow items-baseline mr-6" %}
+  {% assign svgClasses = "h-5 w-5 mr-2" %}
+  {% assign tallSpanClasses = "text-2xl " %}
+{% endunless %}
 <header>
-  <nav>
-    {% assign isShort = include.height == "short" %}
-    <a class="title {% unless isShort %}is-short{% endunless %}" href="/">
-      <svg width="550" height="550" viewBox="0 0 550 550" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="26.5" y="458.5" width="497" height="65" fill="#FFCB67" stroke="black" stroke-width="3"/>
-        <rect x="26.5" y="170.5" width="497" height="65" fill="#008060" stroke="black" stroke-width="3"/>
-        <rect x="26.5" y="314.5" width="497" height="65" fill="#90DFD6" stroke="black" stroke-width="3"/>
-        <path d="M26.5 26.5H523.5V91.5H26.5V26.5Z" fill="#223274" stroke="black" stroke-width="3"/>
-        <rect x="26.5" y="386.5" width="497" height="65" fill="#FFA781" stroke="black" stroke-width="3"/>
-        <rect x="26.5" y="98.5" width="497" height="65" fill="#004C3F" stroke="black" stroke-width="3"/>
-        <rect x="26.5" y="242.5" width="497" height="65" fill="#C43256" stroke="black" stroke-width="3"/>
-      </svg>
+  <nav class="flex items-center justify-between flex-wrap bg-forest-green p-6 text-white">
+    <div class="flex flex-no-wrap flex-grow items-baseline">
+      <a class="flex flex-shrink flex-no-wrap {{ aClasses }}" href="/">
+        <svg class="flex-shrink-0 {{svgClasses}}" viewBox="0 0 550 550" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <rect x="26.5" y="26.5"  width="497" height="65" fill="#223274" stroke="black" stroke-width="1"/>
+          <rect x="26.5" y="98.5"  width="497" height="65" fill="#004C3F" stroke="black" stroke-width="1"/>
+          <rect x="26.5" y="170.5" width="497" height="65" fill="#008060" stroke="black" stroke-width="1"/>
+          <rect x="26.5" y="242.5" width="497" height="65" fill="#C43256" stroke="black" stroke-width="1"/>
+          <rect x="26.5" y="314.5" width="497" height="65" fill="#90DFD6" stroke="black" stroke-width="1"/>
+          <rect x="26.5" y="386.5" width="497" height="65" fill="#FFA781" stroke="black" stroke-width="1"/>
+          <rect x="26.5" y="458.5" width="497" height="65" fill="#FFCB67" stroke="black" stroke-width="1"/>
+        </svg>
 
-      <span>Peeling Away the Layers of the Network Stack</span>
-    </a>
-    {% if isShort %}
-    <div class="menu-icon">
-      <button class="flex items-center px-3 py-2 border rounded text-white border-white-400 outline-none">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-      </button>
+        <span class="font-semibold tracking-tight {{tallSpanClasses}}">Peeling Away the Layers of the Network Stack</span>
+      </a>
+      {% if isShort %}
+      <div class="block outline-none flex-shrink-0 flex-grow-0 lg:hidden">
+        <button id="menu" class="flex items-center px-3 py-2 border rounded text-white border-white-400 outline-none">
+          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+      </div>
+      {% endif %}
     </div>
-    <div class="menu">
+    {% if isShort %}
+    <ol id="menu-items" class="w-full block flex-grow text-sm mt-6 hidden lg:flex lg:divide-x lg:space-x-2 lg:-ml-2 lg:block">
       {% for site_page in site.pages %}
-        <a href="{{ site_page.url }}" class="block text-white no-underline px-2 {% if page.url == site_page.url %}font-bold{% endif %}">
+      <li class="block my-2 lg:h-4 lg:pl-2">
+        <a
+          href="{{ site_page.url }}"
+          class="
+            block
+            p-2
+            hover:bg-jade
+            transition
+            duration-500
+            lg:transform
+            lg:-translate-y-3
+            {% if page.url == site_page.url %}
+              font-bold
+              bg-teal
+              text-black
+            {% endif %}
+          "
+        >
           {{ site_page.title }}
         </a>
+      </li>
       {% endfor %}
-    </div>
+    </ol>
     {% endif %}
   </nav>
 </header>

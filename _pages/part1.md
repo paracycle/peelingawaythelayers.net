@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: RailsConf 2020 Talk Blog Post
+description: What can we learn from human communication? What are some of the concepts that enable us to communicate effectively?
 tags: RailsConf 2020, Blogpost, Talk
 ---
 

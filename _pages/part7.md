@@ -1,6 +1,6 @@
 ---
 title: Conclusion
-description: RailsConf 2020 Talk Blog Post
+description: Why is all this important and what other resources are there?
 tags: RailsConf 2020, Blogpost, Talk
 ---
 

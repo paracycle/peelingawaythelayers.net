@@ -1,6 +1,6 @@
 ---
-title: Application Layer
-description: RailsConf 2020 Talk Blog Post
+title: Application
+description: A look at the top layers of the network stack. How can we encode our application concerns inside the data packets that we send over the network?
 tags: RailsConf 2020, Blogpost, Talk
 ---
 

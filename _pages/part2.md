@@ -1,6 +1,6 @@
 ---
 title: The Stack
-description: RailsConf 2020 Talk Blog Post
+description: How can we build a layered network model that utilizes packet switching? A first look at the OSI model and the network stack.
 tags: RailsConf 2020, Blogpost, Talk
 ---
 
@@ -43,7 +43,7 @@ When the remote party receives the message, their network stack works through th
 - Data that is processed and extracted out at every layer is passed onto the layer above, the layer above does the same kind of processing that is appropriate for it.
 - Finally, the data is processed at the `Application Layer` and passed on to the receiving application/user.
 
-Thus, the model proposed the layered, packet-switched model that we've been examining until this point, where each layer just wraps the raw data passed onto it from the layer above, and then the whole bundle of data is unwrapped layer by layer at the receiveing end point.
+Thus, the model proposed the layered, packet-switched model that we've been examining until this point, where each layer just wraps the raw data passed onto it from the layer above, and then the whole bundle of data is unwrapped layer by layer at the receiving end point.
 
 This is a particularly powerful but sufficiently generic way of proposing how network stacks should operate. For that reason, the model still lives on as the conceptual model for a good network stack.
 

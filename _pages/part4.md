@@ -1,6 +1,6 @@
 ---
-title: Network Layer
-description: RailsConf 2020 Talk Blog Post
+title: Network
+description: A look at layer 3 of the network stack. How can we communicate over networks of networks where each networks independently?
 tags: RailsConf 2020, Blogpost, Talk
 ---
 

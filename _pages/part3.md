@@ -1,6 +1,6 @@
 ---
-title: Physical and Data-Link Layers
-description: RailsConf 2020 Talk Blog Post
+title: Physical and Data-Link
+description: A look at the first two layers of the network stack. How can we physically make computers talk to each other and how can we make them address each other?
 tags: RailsConf 2020, Blogpost, Talk
 ---
 

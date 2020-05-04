@@ -1,0 +1,35 @@
+---
+layout: default
+height: tall
+---
+
+<!-- <h1>Hello World</h1> -->
+
+<div class="text-lg">
+  <p>
+    As web developers, we depend on network protocols to ensure the products
+    we build are available and accessible to our users. Despite this, many of
+    us are poorly aware of how the layers of the network stack actually work,
+    or why they are there.
+  </p>
+  <p>
+    Understanding the things that happen between physical signals on the wire
+    and your web application will help you hone your craft and level you up.
+    Fortunately, the basic concepts of network protocols are easy to grasp,
+    with a little guidance. So let's walk together through these concepts,
+    and peel away the layers of the network stack one by one.
+  </p>
+</div>
+
+<div class="mt-8">
+  <ol class="list-none p-0 grid grid-cols-1" style="grid-auto-rows: 1fr">
+  {% for post in site.pages %}
+    <li class="w-full py-4 px-6 rounded border shadow-md">
+      <a href="{{ post.url }}" class="block no-underline">
+        <h2 class="m-0 mb-3">{{ forloop.index }}. {{ post.title }}</h2>
+        <div class="text-gray-800 mr-8">{{ post.description }}</div>
+      </a>
+    </li>
+  {% endfor %}
+  </ol>
+</div>
