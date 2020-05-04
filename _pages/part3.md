@@ -8,16 +8,17 @@ tags: RailsConf 2020, Blogpost, Talk
 
 At the beginning there was only one computer, sitting alone.
 
-![Single Computer Image](https://via.placeholder.com/600x200/ff00ff/000000?text=Single+Computer+Image)
+![Single Computer](/assets/images/alice.png)
 
 There were other computers around but there was no way for them to communicate.
 
-![Multiple Disconnected Computers](https://via.placeholder.com/600x200/ff00ff/000000?text=Multiple+Disconnected+Computers+Image)
+![Two Disconnected Computers](/assets/images/alice-bob.png)
 
 Then, someone came along with a cable and connected them using small electrical signals. The computers were happy, they could finally talk to other computers.
 
-![Two Connected Computers](https://via.placeholder.com/600x200/ff00ff/000000?text=Two+Connected+Computers+Image)
+![Two Connected Computers](/assets/images/alice-bob-connected.png)
 
+:::{.layer .physical}
 ## Physical Layer
 
 The connection that we have to make between two comupters has to be some physical connection. We can think of the connection as a physical wire that carries some signal using electricity or light, or we can also think about wireless connections where the signal is carried by electromagnetic waves travelling through spacetime.
@@ -34,14 +35,16 @@ An interesting thing to notice for the physical layer is what happens if we conn
 
 Since these networks are packet switched, there are no circuits of communication as it exists over phone lines for example. So we can't just split a CAT6 cable and run it to two different computers, we need an active device in between to duplicate the signal across to the other cable.
 
-![Three computers connected](https://via.placeholder.com/600x200/ff00ff/000000?text=Three+Computers+Connected+With+A+Hub+Image)
+![Three computers connected](/assets/images/alice-bob-charlie.png)
 
 The thing that sits in the middle there is called a "hub" and does something very simple: it just receives signals on any port and broadcasts the same signal over all the other ports. Thus, there is no logic in a simple hub and, for that reason, it is quite wasteful. But it is also the simplest network device you can build.
 
 Since a Hub operates on the physical layer, it is called a Layer 1 (or L1) device.
 
 By the way, each data unit that is sent over this layer is called a "Symbol"
+:::
 
+::: {.layer .data-link}
 ## Data-link Layer
 
 The data-link layer is when things start getting interesting. Now that we have a way of connecting multiple computers together, we need a way for one computer to say that it wants to talk to another computer directly. After all, we cannot keep shouting our messages across the whole network all the time.
@@ -73,5 +76,6 @@ There are a few interesting things to note here:
 3. Each frame has a CRC32 checksum, using which, the destination can check to see if there was any corruption in the data that was sent.
 4. The 802.1Q tag field is optional, but when it is used, it is for creating virtual LANs, where you can have multiple distinct data-link networks operating on the same physical network infrastructure. To make sure the correct data packets go to the correct networks, you also need to have your network equipment, like switches, understand and act on these tags.
 5. The data that the frame can contain is variable length. So if we just want to send 3 bytes, we set the `Length` value to 0x3 and put the 3 bytes as the payload right behind it.
+:::
 
-Remember that the data carried in an Ethernet frame is nothing more than the data packet passed to the Data-Link layer from the layer above, which is the Network layer. That layer we will cover in our [next part](/BNARjyAfTzqSWGsh5HixVg)
+Remember that the data carried in an Ethernet frame is nothing more than the data packet passed to the Data-Link layer from the layer above, which is the Network layer. That layer we will cover in our [next part]({% link _pages/part4.md %})

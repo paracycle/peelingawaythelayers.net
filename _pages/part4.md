@@ -16,6 +16,7 @@ While that is physically an easy thing to do (just run a cable between different
 
 We need to do better, we need another layer on top of the data-link layer to provide a network layer.
 
+:::{.layer .network}
 ## Layer 3 - Network Layer
 
 As we motivated in the preamble for this post, we need a higher layer to address and route traffic from one node on one local network to another node on another network. Going back to our postal service analogy, note how this is very similar to how each country has their own postal service with its rules and regulations, but our mail makes it through different countries postal networks without any concern. The reason for that for postal services is because each country has agreed to coordinate their mail delivery efforts and have standardized ways in which to route mail across this network of networks. We aim to do something similar for the Network Layer in our network stack too.
@@ -46,7 +47,7 @@ This works almost exactly as it does in the postal network example we gave in th
 
 So how does this work exactly? Let's dive in on an example:
 
-![Image of a Network of Networks](https://via.placeholder.com/600x200/ff00ff/000000?text=Network+Of+Networks+Alice+Bob+Charlie+Dolores)
+![Image of a Network of Networks](/assets/images/multiple-networks.png)
 
 
 Here there are two networks connected to each other. There is a node on the network on the left with IP address `192.168.1.2`, let's call it Alice, who wants to send data to node on the network on the right with the IP address `192.168.2.10`, let's call it Bob.
@@ -77,25 +78,25 @@ Subnet Mask is a value that allows a node to check if a given IP address is on t
 
 Let's see this in the above example. Suppose the subnet mask for both networks above are defined as `255.255.255.0`. Now, what Alice does is the following with her IP address:
 
-```
+{% highlight math %}
 Alice's IP address:  192.168.001.002
 Alice's Subnet Mask: 255.255.255.000
 bitwise AND
 ----------------------------------
                      192.168.001.000
-```
+{% endhighlight %}
 
 The reason for the result above is because `255` in binary is actually `0b11111111`, so has all of its bits set. Whenever we do bitwise AND, we line up the two given numbers and look at the corresponding bits in both numbers, compute the AND, and write the resulting bit in the same location of the result. When we AND any bit with a `1`, the result is always the original value of the bit. Similarly, when we AND any bit with a `0`, the result is always `0`. So by sequencing a string of `1`s followed by a string of `0`s we effectively are able to just mask the leading N binary digits of an IP address. `255.255.255.0` masks the first 3 bytes and zeros out the last byte.
 
 Alice does the same calculation with Bob's IP address(which was `192.168.2.10`):
 
-```
+{% highlight math %}
 Bob's IP address:    192.168.002.010
 Alice's Subnet Mask: 255.255.255.000
 bitwise AND
 ----------------------------------
                      192.168.002.000
-```
+{% endhighlight %}
 
 And now, Alice compares the results. Since `192.168.1.0` is not the same as `192.168.2.0`, Alice knows that Bob is on a different network.
 
@@ -126,7 +127,7 @@ When Alice gets the message, she makes a note of the mapping in her ARP table an
 
 If you want to see the ARP table on your computer, open up a shell right now and type `arp -a`. It would show you something like the following:
 
-```
+{% highlight shell %}
 $ arp -a
 ? (192.168.1.1) at 70:3a:cb:2b:c7:80 on en0 ifscope [ethernet]
 ? (192.168.1.11) at c0:0f:fe:b6:6e:57 on en0 ifscope [ethernet]
@@ -135,7 +136,7 @@ $ arp -a
 ? (192.168.1.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
 ? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]
 broadcasthost (255.255.255.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
-```
+{% endhighlight %}
 
 You should be able to remove entries from the table using `arp -d 192.168.1.11` (might need `sudo`) and query new ones using `arp 192.168.1.211`.
 
@@ -186,7 +187,7 @@ It was originally meant to encode actual time in seconds, but it ended up being 
 
 #### Protocol
 
-This is a bit of an interesting field since it encodes the concrete protocol type that this data packet is carrying. Thus, it is a bit of a leak through the layers where the Network layer needs to be aware of the concrete protocol that lives in the Transport layer. But this field comes in handy for routing purposes, so :man-shrugging:.
+This is a bit of an interesting field since it encodes the concrete protocol type that this data packet is carrying. Thus, it is a bit of a leak through the layers where the Network layer needs to be aware of the concrete protocol that lives in the Transport layer. But this field comes in handy for routing purposes, so 🤷‍♂️.
 
 Some of the common payload protocols are:
 
@@ -197,7 +198,7 @@ Some of the common payload protocols are:
 | 6     | Transmission Control Protocol     | TCP     |
 | 17     | User Datagram Protocol     | UDP     |
 
-## ICMP
+### ICMP
 
 Before we leave the network layer, there is one last protocol that operates at this layer we want to mention and that is the Internet Control Message Protocol (ICMP).
 
@@ -207,7 +208,7 @@ The simplest example of an ICMP message is the `Echo Request` message. When a ne
 
 Every time you do a `ping 8.8.8.8`, your machine is sending an ICMP `Echo Request` message to the machine at IP address `8.8.8.8`. An when `8.8.8.8` receives our request, it sends an `Echo Response` message back to our machine. Thus, the `ping` command can calculate the difference between when it sent the initial message and when it received the reply to calculate a roundtrip time. There is no magic in what `ping` does, it just operates at Layer 3 of the network stack.
 
-```shell
+{% highlight shell %}
 $ ping 8.8.8.8
 PING 8.8.8.8 (8.8.8.8): 56 data bytes
 64 bytes from 8.8.8.8: icmp_seq=0 ttl=47 time=116.574 ms
@@ -219,7 +220,7 @@ PING 8.8.8.8 (8.8.8.8): 56 data bytes
 --- 8.8.8.8 ping statistics ---
 5 packets transmitted, 5 packets received, 0.0% packet loss
 round-trip min/avg/max/stddev = 114.569/118.367/123.910/3.252 ms
-```
+{% endhighlight %}
 
 Remember how we talked about `Time to Live` (TTL) above and how we said that if TTL ever gets to `0`, the source address is sent a message. Yes, that message is also in ICMP format and is called the ICMP `Time Exceeded` message. When a sender receives an ICMP `Time Exceeded` message, it knows which router dropped the packet and which packet it was. Did you ever wonder how `traceroute` (`tracert` on Windows) worked? Well now you know.
 
@@ -232,7 +233,7 @@ And this will go on and on until the TTL is long enough for the packet to reach 
 
 This way, `traceroute` is able to show us all the hops in the network that our packets make their way through to get to `8.8.8.8`, which looks something like this:
 
-```shell
+{% highlight shell %}
 $ traceroute -n 8.8.8.8
 traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
  1  192.168.1.1  3.382 ms  2.040 ms  2.213 ms
@@ -257,8 +258,10 @@ traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
     216.239.47.245  125.948 ms
     74.125.37.167  77.895 ms
 16  8.8.8.8  110.933 ms  104.612 ms  117.384 ms
-```
+{% endhighlight %}
+
+:::
 
 ## Next Part
 
-This wraps it up for the Network Layer, in the [next part](/JN_6YvoURQ26lmEgbBD6Qg) we will step up one more layer and investigate the Transport Layer.
+This wraps it up for the Network Layer, in the [next part]({% link _pages/part5.md %}) we will step up one more layer and investigate the Transport Layer.

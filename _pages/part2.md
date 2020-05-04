@@ -24,15 +24,9 @@ During 1960s and 1970s there were many propietary networks in existence since ea
 
 What they came up with is what is called the OSI Model and is still the reference when talking about network stacks. The initial aim of the group was to give this high level architecture and then to provide concrete implementations for every layer of the stack. But, until they were able to formalize the implementations, the TCP/IP stack took over the world and became the de-facto network stack in use everywhere. So, when we talk about network stacks, we will refer to the OSI model but still mostly talk about the TCP/IP implementation. It is good to keep that in mind.
 
-The OSI model proposes a packet switched network model that consists of 7 layers, where, starting from the bottom, going up, they are:
+The OSI model proposes a packet switched network model that consists of 7 layers:
 
-1. Physical Layer
-2. Data-link Layer
-3. Network Layer
-4. Transport Layer
-5. Session Layer
-6. Presentation Layer
-7. Application Layer
+![The OSI Model](/assets/images/osi-model.png)
 
 The way each of these layers are proposed to work is as follows:
 
@@ -57,4 +51,4 @@ The OSI model does not propose any concrete implementation for how each layer sh
 
 However, before we do that, this is a good place to mention that the HTTP over TCP/IP over Ethernet/Wifi that is we use below most of our Rails applications can also be considered a concrete implementation of the OSI model. For that reason, we will be referring more to the TCP/IP stack when diving into the network stack.
 
-In [part 3](/aS84qY2YS9ypZTF1HBuE2Q) we will start building the layers from ground up.
+In [part 3]({% link _pages/part3.md %}) we will start building the layers from ground up.

@@ -12,6 +12,7 @@ Now that we are able to send data across different network, we start having othe
 
 These are all concerns that the Transport Layer aims to address.
 
+:::{.layer .transport}
 ## Layer 4 - Transport Layer
 
 The Network Layer in the OSI model is responsible for reliable transmission of data between different network node. At the same time, the transport layer is also responsible for dividing up the data to be sent into smaller chunks that can be carried by the physical link and, on the receiving end, for reassembling the same data for consumption. A data unit on the transport layer is called a "datagram" or "segment".
@@ -115,7 +116,8 @@ TCP ends up trading complexity of implementation for certain guarantees in retur
 - **Heavyweight**: Due to all the acknowledgements, retransmissions, timeouts, buffers and state that needs to be kept on each end, TCP ends up being a very heavyweight protocol.
 
 There are still some aspects of TCP that we haven't mentioned here, like flow control and congestion control, that are beyond the scope of this exposition. We strongly urge the reader who is interested to read up more about those topics too.
+:::
 
 ## Next Part
 
-In the [next part of the series](/wBiVlQOyThmZwBYpZLi5-g), we will finally get a chance to talk about the final 3 layers of the network stack. Despite being separate layers in the OSI model, most of the time the final three layers are all collapsed into Layer 7, the Application Layer, with the responsbilities of the layers in between divided up into lower or higher layers.
+In the [next part of the series]({% link _pages/part6.md %}), we will finally get a chance to talk about the final 3 layers of the network stack. Despite being separate layers in the OSI model, most of the time the final three layers are all collapsed into Layer 7, the Application Layer, with the responsbilities of the layers in between divided up into lower or higher layers.

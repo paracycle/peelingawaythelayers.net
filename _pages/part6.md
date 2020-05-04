@@ -10,6 +10,7 @@ As we noted at the end of the previous part, the final 3 layers of the OSI model
 
 Thus, we will directly skip over Session and Presentation layers into Layer 7, the Application Layer.
 
+:::{.layer .application}
 ## Layer 7 - Application Layer
 
 This layer is the top most layer of the OSI model and is the layer where protocols that are closest to the user are defined. The reason this layer is called the Application Layer is because the messages that this layer deals with come directly from applications running on a computer system.
@@ -59,16 +60,16 @@ Thus, Alice enters the URL `http://bobwidgets.myshopify.com/widgets` in her brow
 
 Then, the browser makes starts a TCP connection with the server at address `35.185.82.132` on port `80` (the default port for HTTP). Provided that the three-way TCP handshake completes successfully, Alice's browser sends the following data in a TCP segment:
 
-```http
+{% highlight http %}
 GET /widgets HTTP/1.1
 Host: bobwidgets.myshopify.com
-```
+{% endhighlight %}
 
 This request has the verb `GET` and requests the resource `/widgets` on the HTTP server as indicated by the URL Alice input in her browser. Alice also sends the host name she is making a request for, in case the same HTTP server responds to requests made for different hosts. Moreover, this request does not include a body, since Alice's request has not specified a length for a body.
 
 Now that Bob's HTTP server has received the request, it does some processing and returns an HTTP response that contains the widget list that Alice asked for. The response might look something like this:
 
-```http
+{% highlight http %}
 HTTP/1.1 200 OK
 Date: Fri, 10 Apr 2020 23:00:00 UTC
 Content-Type: text/html; charset=UTF-8
@@ -86,7 +87,7 @@ Content-Length: 239
     <a href="/widgets/new">Add a new Widget</a>
   </body>
 </html>
-```
+{% endhighlight %}
 
 This response states that the request was processed successfully (`200` is a status code that means that and `OK` is the textual representation of it). It also send back the date on the server when this response was generated, the type of the content that is being sent in the body and the length of the body in bytes.
 
@@ -98,21 +99,21 @@ Now, Alice can click on the link that says `Widget 1` to fetch the resource for 
 
 If Alice fills the form on `/widgets/new` and submits, her browser will make a request like the following:
 
-```http
+{% highlight http %}
 POST /widgets HTTP/1.1
 Host: bobwidgets.myshpify.com
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 36
 
 name=My%20Widget&color=blue&stock=20
-```
+{% endhighlight %}
 
 and Bob's server will receive the request, process it, possibly write it to the database and respond with something like:
 
-```http
+{% highlight http %}
 HTTP/1.1 201 Created
 Location: /widgets/42
-```
+{% endhighlight %}
 
 In this example, Alice's request has a `POST` verb operating on the `/widgets` resource. And Alice is sending data to Bob along with this request represented in the form urlencoded type. Bob's server responds by saying that a new resource was created and points Alice's browser to the location of the new created resource.
 
@@ -148,7 +149,7 @@ For the Ruby application, this is a method call with the `env` variable passed i
 
 In the case of Alice's `POST /widgets` example, the data passed to the Ruby application's handler function would look like this:
 
-```ruby
+{% highlight ruby %}
 {
   "REQUEST_METHOD" => "POST",
   "PATH_INFO" => "/widgets",
@@ -158,13 +159,13 @@ In the case of Alice's `POST /widgets` example, the data passed to the Ruby appl
   "HTTP_CONTENT_LENGTH" => 36,
   "rack.input" => "name=My%20Widget&color=blue&stock=20"
 }
-```
+{% endhighlight %}
 
 As you can see, this completely describes the HTTP request in a Ruby Hash object!
 
 When the Ruby handler processes this request, it returns a response like the following:
 
-```ruby
+{% highlight ruby %}
 [
   201,
   {
@@ -172,15 +173,15 @@ When the Ruby handler processes this request, it returns a response like the fol
   },
   [""]
 ]
-```
+{% endhighlight %}
 
 Notice, again, how this completely determines what the response should be. This result from the Ruby handler method gets passed to the application server, which renders it as a proper HTTP response and send it back to the web server.
 
 ## Rails
 
 Finally, Rails. Rails is framework that is built on top of Rack and is layers and layers of abstraction that makes it super easy and fun to work with incoming HTTP messages. For more information on how exactly Rails processes the Rack data that gets passed in, you can take a look at the talk ["Inside Rails: The Lifecycle of a Request"](https://www.youtube.com/watch?v=eK_JVdWOssI) from RailsConf 2019.
-
+:::
 
 # Next Steps
 
-In the [next and final part of this series](/mexl0XuyQNy7o17_4CpyHA), we will recap all the things we covered throughout these series, talk a little bit about why all of this is important and provide links to some tools you might want to use if and when you want to dive deep into these layers.
+In the [next and final part of this series]({% link _pages/part7.md %}), we will recap all the things we covered throughout these series, talk a little bit about why all of this is important and provide links to some tools you might want to use if and when you want to dive deep into these layers.
