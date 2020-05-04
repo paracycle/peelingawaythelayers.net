@@ -8,5 +8,8 @@
     "postcss-nesting": "^7.0.1",
     "purgecss": "^2.1.2",
     "tailwindcss": "^1.4.4"
+  },
+  "scripts": {
+    "deploy": "JEKYLL_ENV=production bundle exec jekyll build && yarn run now ./_site"
   }
 }
