@@ -31,12 +31,21 @@ github_username:  paracycle
 
 # Build settings
 # theme: minima
-markdown: kramdown
+markdown: Pandoc
 plugins:
   - jekyll-feed
   - jekyll-postcss
   - jekyll-purgecss
+  - jekyll-minifier
   - jekyll-seo-tag
+  - jekyll-pandoc
+css_dir: assets/css/
+
+pandoc:
+  extensions:
+    - from: markdown+emoji+smart+fenced_code_blocks
+    - no-highlight
+    - mathjax
 
 collections:
   pages:
@@ -51,8 +60,7 @@ defaults:
       type: "pages"
     values:
       layout: "page"
-include:
-  - _pages
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

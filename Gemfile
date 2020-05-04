@@ -19,6 +19,8 @@ group :jekyll_plugins do
   gem "jekyll-postcss"
   gem "jekyll-purgecss"
   gem "jekyll-seo-tag"
+  gem "jekyll-minifier"
+  gem "jekyll-pandoc"
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
