@@ -5,16 +5,17 @@
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
+@import "/assets/css/github.css";
 
 /* Write your styles below this line. */
 
 body {
   font-size: 18px;
-  @apply font-body subpixel-antialiased max-w-4xl mx-auto shadow-xl bg-off-white;
+  @apply font-body subpixel-antialiased max-w-4xl mx-auto shadow-xl bg-off-white min-h-screen flex flex-col;
 }
 
 main {
-  @apply p-8 bg-white;
+  @apply p-8 bg-white flex-1;
 }
 
 section {
@@ -34,6 +35,10 @@ h2 {
 }
 
 h3 {
+  @apply text-xl my-2 border-b border-forest-green;
+}
+
+h4 {
   @apply text-lg my-2;
 }
 
@@ -41,16 +46,29 @@ a {
   @apply text-blue-600 underline;
 }
 
-nav {
+header > nav {
   @apply flex items-center justify-between flex-wrap bg-forest-green p-6;
 
-  .title {
-    @apply flex items-center flex-shrink-0 mr-6;
-    a {
-      @apply text-white no-underline;
+  a.title {
+    @apply text-white no-underline text-center flex items-center flex-shrink-0 mr-6;
+
+    &.is-short {
+      @apply w-full h-64 justify-center flex-col align-middle;
+
+      svg {
+        @apply block h-20 w-20 bg-shopify-gray mb-4;
+      }
+      span {
+        @apply text-4xl;
+      }
     }
+
     span {
       @apply font-semibold text-2xl tracking-tight;
+    }
+
+    svg {
+      @apply h-5 w-5 mr-2;
     }
   }
 
@@ -71,12 +89,28 @@ nav {
   }
 }
 
+footer nav {
+  @apply flex items-center justify-between flex-wrap bg-forest-green p-6 text-white;
+}
+
 p {
   @apply my-3;
 }
 
 img, iframe {
-  @apply rounded mx-auto my-6;
+  @apply rounded mx-auto;
+}
+
+iframe {
+  @apply my-6;
+}
+
+figure {
+  @apply mx-auto my-6;
+
+  figcaption {
+    @apply text-sm font-light text-center mt-2;
+  }
 }
 
 ol, ul {
@@ -96,20 +130,57 @@ ul {
 }
 
 table {
-  @apply table-auto border-collapse border-forest-green border-2 text-center mx-auto;
+  @apply table-auto border-collapse border-shopify-gray border-2 text-center mx-auto;
 
   & td, & th {
-    @apply border px-4 py-2;
+    @apply border border-shopify-lightgray px-4 py-2;
   }
 }
 
-p code {
-  @apply text-base bg-gray-200 font-medium rounded-md px-2;
+code {
+  @apply text-base bg-shopify-lightgray rounded-md px-2;
 }
 
-pre code {
+pre {
+  @apply bg-shopify-lightgray p-4 rounded-md;
 
+  code {
+    @apply bg-transparent px-0;
+  }
 }
+
+.layer {
+  @apply border-solid border-l-8 -ml-8 pl-6;
+}
+
+.physical {
+  @apply border-yellow;
+}
+
+.data-link {
+  @apply border-peach;
+}
+
+.network {
+  @apply border-teal;
+}
+
+.transport {
+  @apply border-cranberry;
+}
+
+.session {
+  @apply border-jade;
+}
+
+.presentation {
+  @apply border-forest-green;
+}
+
+.application {
+  @apply border-indigo;
+}
+
 /* Write your styles above this line. */
 
 @tailwind utilities;

@@ -13,7 +13,10 @@ module.exports = {
             'peach': '#FFA781',
             'teal': '#90DFD6',
             'cranberry': '#C43256',
-            'jade': '#008060'
+            'jade': '#008060',
+            'indigo': '#223274',
+            'shopify-gray': '#9E9E9E',
+            'shopify-lightgray': '#D9D9D9',
         }
     },
     // fontSize: {
