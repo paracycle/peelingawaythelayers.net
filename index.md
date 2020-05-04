@@ -1,7 +1,13 @@
-- [Part 1](/part1)
-- [Part 2](/part2)
-- [Part 3](/part3)
-- [Part 4](/part4)
-- [Part 5](/part5)
-- [Part 6](/part6)
-- [Part 7](/part7)
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: default
+height: tall
+---
+
+# Hello World
+
+{% for post in site.pages %}
+  [{{ post.title }}]({{ post.url }})
+{% endfor %}

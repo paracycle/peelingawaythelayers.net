@@ -4,15 +4,18 @@
   {% feed_meta %}
   {% seo %}
   <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel=icon href="/assets/favicon.svg" sizes="any" type="image/svg+xml">
 </head>
 <html>
   <body>
-    {% include nav.html %}
+    {% include header.html height=layout.height %}
     <main>
       <section>
         {{ content }}
       </section>
     </main>
+    {% include footer.html %}
+
     {% if jekyll.environment == 'production' %}
       {% include analytics.html %}
     {% endif %}
