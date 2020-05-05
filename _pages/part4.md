@@ -43,16 +43,16 @@ Unlike MAC addresses, IP addresses are virtual and are not tied to any particula
 
 As we said before, the Network Layer is responsible for moving data across a network of separate networks. So we need entities on each network that know how and where to send our data so that it makes its way to the recipient.
 
-This works almost exactly as it does in the postal network example we gave in the [first part of these series](/KC66lGNLQZGfbjNCvhKRSQ). Each node that routes data on the Network Layer is called a "router", so each router is, thus, a Layer 3 device, since they can read the network layer protocol. Routers are connected to multiple networks and provide the role of the gateway between them.
+This works almost exactly as it does in the postal network example we gave in the [first part of these series]({% link _pages/part1.md %}). Each node that routes data on the Network Layer is called a "router", so each router is, thus, a Layer 3 device, since they can read the network layer protocol. Routers are connected to multiple networks and provide the role of the gateway between them.
 
 So how does this work exactly? Let's dive in on an example:
 
 ![Image of a Network of Networks](/assets/images/multiple-networks.png)
 
 
-Here there are two networks connected to each other. There is a node on the network on the left with IP address `192.168.1.2`, let's call it Alice, who wants to send data to node on the network on the right with the IP address `192.168.2.10`, let's call it Bob.
+Here there are two networks connected to each other. There is a node on the network on the left with IP address `192.168.1.2`, let's call it Alice, who wants to send data to node on the network on the right with the IP address `192.168.10.5`, let's call it Bob.
 
-The two networks are connected by a router that sits on both networks, let's call the router Charlie. Charlie has two IP addresses since it lives in two networks, let's say its IP address is `192.168.1.1` on the first network and `192.168.2.1` on the second network.
+The two networks are connected by a router that sits on both networks, let's call the router Charlie. Charlie has two IP addresses since it lives in two networks, let's say its IP address is `192.168.1.1` on the first network and `192.168.10.1` on the second network.
 
 Now, when Alice wants to send some data to Bob, it first checks to see if Bob's address is on the same network as Alice. (How does this happen, you might ask, more details on that later.) When Alice realizes that Bob is on a separate network, Alice knows that she needs to first send the data to Charlie. (Again, how did Alice know to send the data to Charlie? Again, more details later.) When Charlie receives the packet, it inspects the destination address and sees that it is an address on the other network and sends the data to Bob directly.
 
@@ -67,8 +67,9 @@ The simple answer is that Alice needs more configuration than just its IP addres
 1. Subnet Mask
 2. Default Gateway
 
+<!--
 ![Image of IP Settings from Windows](https://via.placeholder.com/600x200/ff00ff/000000?text=Windows+Network+Settings)
-
+ -->
 
 Let's see what these settings mean:
 
@@ -88,17 +89,17 @@ bitwise AND
 
 The reason for the result above is because `255` in binary is actually `0b11111111`, so has all of its bits set. Whenever we do bitwise AND, we line up the two given numbers and look at the corresponding bits in both numbers, compute the AND, and write the resulting bit in the same location of the result. When we AND any bit with a `1`, the result is always the original value of the bit. Similarly, when we AND any bit with a `0`, the result is always `0`. So by sequencing a string of `1`s followed by a string of `0`s we effectively are able to just mask the leading N binary digits of an IP address. `255.255.255.0` masks the first 3 bytes and zeros out the last byte.
 
-Alice does the same calculation with Bob's IP address(which was `192.168.2.10`):
+Alice does the same calculation with Bob's IP address(which was `192.168.10.5`):
 
 {% highlight math %}
-Bob's IP address:    192.168.002.010
+Bob's IP address:    192.168.010.005
 Alice's Subnet Mask: 255.255.255.000
 bitwise AND
 ----------------------------------
-                     192.168.002.000
+                     192.168.010.000
 {% endhighlight %}
 
-And now, Alice compares the results. Since `192.168.1.0` is not the same as `192.168.2.0`, Alice knows that Bob is on a different network.
+And now, Alice compares the results. Since `192.168.1.0` is not the same as `192.168.10.0`, Alice knows that Bob is on a different network.
 
 So Alice needs someone to relay the message, and that is the next piece of information that Alice needs.
 
@@ -127,16 +128,14 @@ When Alice gets the message, she makes a note of the mapping in her ARP table an
 
 If you want to see the ARP table on your computer, open up a shell right now and type `arp -a`. It would show you something like the following:
 
-{% highlight shell %}
-$ arp -a
-? (192.168.1.1) at 70:3a:cb:2b:c7:80 on en0 ifscope [ethernet]
-? (192.168.1.11) at c0:0f:fe:b6:6e:57 on en0 ifscope [ethernet]
-? (192.168.1.14) at de:ad:be:ef:1e:89 on en0 ifscope [ethernet]
-? (192.168.1.200) at f0:07:ba:11:db:61 on en0 ifscope permanent [ethernet]
-? (192.168.1.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
-? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]
-broadcasthost (255.255.255.255) at ff:ff:ff:ff:ff:ff on en0 ifscope [ethernet]
-{% endhighlight %}
+<script
+  id="asciicast-3HUDgxOPSdRD9ftkTEvGatlSR"
+  src="https://asciinema.org/a/3HUDgxOPSdRD9ftkTEvGatlSR.js"
+  data-size="small"
+  data-speed="2.5"
+  data-rows="14"
+  async
+></script>
 
 You should be able to remove entries from the table using `arp -d 192.168.1.11` (might need `sudo`) and query new ones using `arp 192.168.1.211`.
 
@@ -208,19 +207,13 @@ The simplest example of an ICMP message is the `Echo Request` message. When a ne
 
 Every time you do a `ping 8.8.8.8`, your machine is sending an ICMP `Echo Request` message to the machine at IP address `8.8.8.8`. An when `8.8.8.8` receives our request, it sends an `Echo Response` message back to our machine. Thus, the `ping` command can calculate the difference between when it sent the initial message and when it received the reply to calculate a roundtrip time. There is no magic in what `ping` does, it just operates at Layer 3 of the network stack.
 
-{% highlight shell %}
-$ ping 8.8.8.8
-PING 8.8.8.8 (8.8.8.8): 56 data bytes
-64 bytes from 8.8.8.8: icmp_seq=0 ttl=47 time=116.574 ms
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=47 time=116.890 ms
-64 bytes from 8.8.8.8: icmp_seq=2 ttl=47 time=114.569 ms
-64 bytes from 8.8.8.8: icmp_seq=3 ttl=47 time=123.910 ms
-64 bytes from 8.8.8.8: icmp_seq=4 ttl=47 time=119.893 ms
-^C
---- 8.8.8.8 ping statistics ---
-5 packets transmitted, 5 packets received, 0.0% packet loss
-round-trip min/avg/max/stddev = 114.569/118.367/123.910/3.252 ms
-{% endhighlight %}
+<script
+  id="asciicast-YWJoZzzPiyTbtvqvH38l2np5l"
+  src="https://asciinema.org/a/YWJoZzzPiyTbtvqvH38l2np5l.js"
+  data-size="small"
+  data-rows="14"
+  async
+></script>
 
 Remember how we talked about `Time to Live` (TTL) above and how we said that if TTL ever gets to `0`, the source address is sent a message. Yes, that message is also in ICMP format and is called the ICMP `Time Exceeded` message. When a sender receives an ICMP `Time Exceeded` message, it knows which router dropped the packet and which packet it was. Did you ever wonder how `traceroute` (`tracert` on Windows) worked? Well now you know.
 
@@ -233,32 +226,14 @@ And this will go on and on until the TTL is long enough for the packet to reach 
 
 This way, `traceroute` is able to show us all the hops in the network that our packets make their way through to get to `8.8.8.8`, which looks something like this:
 
-{% highlight shell %}
-$ traceroute -n 8.8.8.8
-traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
- 1  192.168.1.1  3.382 ms  2.040 ms  2.213 ms
- 2  192.168.5.1  3.130 ms  3.193 ms  2.118 ms
- 3  31.209.99.154  15.040 ms  12.723 ms  20.181 ms
- 4  10.10.3.253  18.310 ms  13.717 ms  17.016 ms
- 5  10.10.0.9  19.254 ms  12.691 ms  36.264 ms
- 6  31.209.96.109  14.054 ms  19.312 ms  16.626 ms
- 7  212.174.242.117  14.198 ms  15.939 ms  32.951 ms
- 8  212.156.140.97  90.147 ms  82.122 ms  87.361 ms
- 9  185.84.16.29  107.466 ms  106.162 ms
-    83.231.187.21  113.053 ms
-10  195.219.25.18  117.222 ms  109.876 ms  114.588 ms
-11  195.219.87.30  105.761 ms  116.203 ms  116.027 ms
-12  195.219.87.195  92.557 ms
-    195.219.87.18  129.099 ms  121.657 ms
-13  195.219.50.190  109.866 ms  104.653 ms  110.226 ms
-14  108.170.252.65  80.407 ms
-    108.170.252.1  80.026 ms
-    108.170.252.65  113.019 ms
-15  216.239.48.43  72.505 ms
-    216.239.47.245  125.948 ms
-    74.125.37.167  77.895 ms
-16  8.8.8.8  110.933 ms  104.612 ms  117.384 ms
-{% endhighlight %}
+<script
+  id="asciicast-kJjH1HaJv81pv0Z3fV9IABiPW"
+  src="https://asciinema.org/a/kJjH1HaJv81pv0Z3fV9IABiPW.js"
+  data-size="small"
+  data-speed="1.5"
+  data-rows="20"
+  async
+></script>
 
 :::
 

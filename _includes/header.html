@@ -9,8 +9,8 @@
   {% assign tallSpanClasses = "text-2xl " %}
 {% endunless %}
 <header>
-  <nav class="flex items-center justify-between flex-wrap bg-forest-green p-6 text-white">
-    <div class="flex flex-no-wrap flex-grow items-baseline">
+  <nav class="flex items-center justify-between flex-wrap bg-forest-green text-white">
+    <div class="flex flex-no-wrap flex-grow items-baseline p-6">
       <a class="flex flex-shrink flex-no-wrap {{ aClasses }}" href="/">
         <svg class="flex-shrink-0 {{svgClasses}}" viewBox="0 0 550 550" fill="white" xmlns="http://www.w3.org/2000/svg">
           <rect x="26.5" y="26.5"  width="497" height="65" fill="#223274" stroke="black" stroke-width="1"/>
@@ -24,40 +24,51 @@
 
         <span class="font-semibold tracking-tight {{tallSpanClasses}}">Peeling Away the Layers of the Network Stack</span>
       </a>
-      {% if isShort %}
+{% if isShort %}
       <div class="block outline-none flex-shrink-0 flex-grow-0 lg:hidden">
         <button id="menu" class="flex items-center px-3 py-2 border rounded text-white border-white-400 outline-none">
           <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
         </button>
       </div>
-      {% endif %}
+{% endif %}
     </div>
-    {% if isShort %}
-    <ol id="menu-items" class="w-full block flex-grow text-sm mt-6 hidden lg:flex lg:divide-x lg:space-x-2 lg:-ml-2 lg:block">
-      {% for site_page in site.pages %}
-      <li class="block my-2 lg:h-4 lg:pl-2">
+{% if isShort %}
+    <ol id="menu-items" class="w-full text-sm hidden lg:grid lg:divide-x lg:gap-0 lg:grid-cols-{{ site.pages | size }} lg:grid-rows-1">
+    {% for site_page in site.pages %}
+      <li class="
+        flex
+        pl-4
+        border-t
+        border-shopify-gray
+        {% if page.url == site_page.url %}
+          font-bold
+          bg-yellow
+          text-black
+        {% else %}
+          hover:bg-jade
+          transition
+          duration-500
+        {% endif %}
+        lg:pl-0
+        "
+      >
         <a
           href="{{ site_page.url }}"
           class="
-            block
             p-2
-            hover:bg-jade
-            transition
-            duration-500
-            lg:transform
-            lg:-translate-y-3
-            {% if page.url == site_page.url %}
-              font-bold
-              bg-teal
-              text-black
-            {% endif %}
+            w-full
+            h-full
+            flex
+            text-center
+            lg:items-center
+            lg:justify-center
           "
         >
           {{ site_page.title }}
         </a>
       </li>
-      {% endfor %}
+    {% endfor %}
     </ol>
-    {% endif %}
+{% endif %}
   </nav>
 </header>

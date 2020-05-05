@@ -49,8 +49,8 @@ main {
     @apply my-3;
   }
 
-  img, iframe {
-    @apply rounded mx-auto;
+  img, iframe, .asciicast {
+    @apply rounded mx-auto w-auto;
   }
 
   iframe {
@@ -98,6 +98,15 @@ main {
 
     code {
       @apply bg-transparent px-0;
+    }
+  }
+
+  .youtube-embed {
+    @apply overflow-hidden relative h-0 mb-8;
+    padding-bottom: 56.25%;
+
+    iframe {
+      @apply left-0 top-0 h-full w-full absolute;
     }
   }
 }

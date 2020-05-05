@@ -21,15 +21,16 @@ Then, someone came along with a cable and connected them using small electrical 
 :::{.layer .physical}
 ## Physical Layer
 
-The connection that we have to make between two comupters has to be some physical connection. We can think of the connection as a physical wire that carries some signal using electricity or light, or we can also think about wireless connections where the signal is carried by electromagnetic waves travelling through spacetime.
+The connection that we have to make between two computers has to be some physical connection. We can think of the connection as a physical wire that carries some signal using electricity or light, or we can also think about wireless connections where the signal is carried by electromagnetic waves travelling through space-time.
 
 Whatever we choose as the physical connection layer, though, needs to provide facilities to ensure that data can be communicated in both directions (maybe not simultaneously) and there is a clear boundary between when a data packet starts and ends.
 
 The physical layer of the network stack, is thus, responsible for ensuring that the digital bits handed off to it is converted to the appropriate physical signals and transmitted over the connecting medium. Moreover, since each media has a certain capacity for how much communication it can handle, the physical layer is also responsible for ensuring that it is not sending data faster than what the connection can handle.
 
-Common physical layers are the twisted pair CAT-5 or CAT-6 cables for Ethernet, electromagnetic waves at 2.4GHz or 5Ghz frequencey for WiFi, etc.
-
+Common physical layers are the twisted pair CAT-5 or CAT-6 cables for Ethernet, electromagnetic waves at 2.4GHz or 5Ghz frequency for WiFi, etc.
+<!--
 ![CAT6 Cable](https://via.placeholder.com/600x200/ff00ff/000000?text=CAT6+Cable+Image)
+-->
 
 An interesting thing to notice for the physical layer is what happens if we connect more than two computers together. How should data flow in that case?
 

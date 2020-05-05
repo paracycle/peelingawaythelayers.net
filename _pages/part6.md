@@ -28,7 +28,7 @@ The protocol that we, as web developers, are most interested in is obviously HTT
 
 So far, when talking about communication between different computers on the network we talked about using MAC addresses on the local network and then using IP addresses when communicating over different networks. Thanks to Address Resolution Protocol, we don't have to be concerned with MAC addresses and can just use IP addresses when making connections.
 
-However, IP addresses are 32-bit numbers and people are really bad with numbers. If every site on the internet had to be addressed using its IP address, it would not have the popularity it has today. Would uyou rather connect to a website with the address `35.185.82.132` or `shopify.com`? Which one is easier to remember?
+However, IP addresses are 32-bit numbers and people are really bad with numbers. If every site on the internet had to be addressed using its IP address, it would not have the popularity it has today. Would you rather connect to a website with the address `35.185.82.132` or `shopify.com`? Which one is easier to remember?
 
 Obviously, names are easier to remember but out network stack does not operate using names. How can we solve this problem?
 
@@ -182,6 +182,6 @@ Notice, again, how this completely determines what the response should be. This 
 Finally, Rails. Rails is framework that is built on top of Rack and is layers and layers of abstraction that makes it super easy and fun to work with incoming HTTP messages. For more information on how exactly Rails processes the Rack data that gets passed in, you can take a look at the talk ["Inside Rails: The Lifecycle of a Request"](https://www.youtube.com/watch?v=eK_JVdWOssI) from RailsConf 2019.
 :::
 
-# Next Steps
+<!-- # Next Steps
 
-In the [next and final part of this series]({% link _pages/part7.md %}), we will recap all the things we covered throughout these series, talk a little bit about why all of this is important and provide links to some tools you might want to use if and when you want to dive deep into these layers.
+In the [next and final part of this series]({% link _pages/part6.md %}), we will recap all the things we covered throughout these series, talk a little bit about why all of this is important and provide links to some tools you might want to use if and when you want to dive deep into these layers. -->

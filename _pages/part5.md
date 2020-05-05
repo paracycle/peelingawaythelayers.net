@@ -6,7 +6,7 @@ tags: RailsConf 2020, Blogpost, Talk
 
 # Part 5 - Transport Layer
 
-In the previous parts, we examined how we can [send data from one computer to another](), then we looked at how we can turn [that into a network of many computers all connected](). And [in the last part](), we looked at how we can connect networks together and yet still allow machines to communicate across these disparate networks.
+In the previous parts, we examined how we can [send data from one computer to another]({% link _pages/part3.md %}), then we looked at how we can turn that into a network of many computers all connected. And [in the last part]({% link _pages/part4.md %}), we looked at how we can connect networks together and yet still allow machines to communicate across these disparate networks.
 
 Now that we are able to send data across different network, we start having other concerns. How can we ensure delivery of the data that we send? How can we be sure that the messages that we are sending were actually received? If we are sending a message in multiple parts across the network, each part could take a completely different path. How can we ensure that the receiver can process the parts in the correct sequence?
 
@@ -65,9 +65,11 @@ On the other hand, maybe they did receive your letter and accepted the date/time
 
 We can add more letters and more messages to this sequence to make it more and more likely that you can agree on a meeting date/time, but we can never 100% guarantee that you can always be in agreement in every situation, no matter what we do.
 
-This is called the "Two Generals' Problem" in computer science literature and was first published [in a 1975 paper](http://hydra.infosys.tuwien.ac.at/teaching/courses/AdvancedDistributedSystems/download/1975_Akkoyunlu,%20Ekanadham,%20Huber_Some%20constraints%20and%20tradeoffs%20in%20the%20design%20of%20network%20communications.pdf). The general result of a rigourous analysis of the problem is that it is unsolveable.
+This is called the "Two Generals' Problem" in computer science literature and was first published [in a 1975 paper](http://hydra.infosys.tuwien.ac.at/teaching/courses/AdvancedDistributedSystems/download/1975_Akkoyunlu,%20Ekanadham,%20Huber_Some%20constraints%20and%20tradeoffs%20in%20the%20design%20of%20network%20communications.pdf). The general result of a rigorous analysis of the problem is that it is unsolvable.
 
+<div class="youtube-embed">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/IP-rGJKSZ3s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 How is this related to TCP, you might ask! Well, unlike UDP, TCP tries to guarantee reliability and ordering for the messages transmitted. Since the networks TCP operates on are not guaranteed to be reliable themselves, in order to guarantee reliability TCP has to address this "Two Generals' Problem".
 
@@ -83,7 +85,7 @@ The signature TCP mechanism is the mechanism it uses for establishing a connecti
 
 At the end of the third step, if all the messages made it through, then both parties have agreed on each other's sequence numbers that they can use in future messages and they are confident that the other party got their messages so far. Thus, a connection is established.
 
-From now on, whenever either Alice or Bob is going to send TCP segments to each other, they will also mark them as `ACK` messages and include the last known sequence number of the other part plus 1 as the acknowledgement number. This ensures that the communication always happens as part of a sequence and the chain is not broken. Thus, at every step both parties know that their messages were received, since they get acknowledgement messsages back for them in a unique way.
+From now on, whenever either Alice or Bob is going to send TCP segments to each other, they will also mark them as `ACK` messages and include the last known sequence number of the other part plus 1 as the acknowledgement number. This ensures that the communication always happens as part of a sequence and the chain is not broken. Thus, at every step both parties know that their messages were received, since they get acknowledgement messages back for them in a unique way.
 
 So what happens if messages get lost? Let's analyse a few scenarios:
 
@@ -120,4 +122,4 @@ There are still some aspects of TCP that we haven't mentioned here, like flow co
 
 ## Next Part
 
-In the [next part of the series]({% link _pages/part6.md %}), we will finally get a chance to talk about the final 3 layers of the network stack. Despite being separate layers in the OSI model, most of the time the final three layers are all collapsed into Layer 7, the Application Layer, with the responsbilities of the layers in between divided up into lower or higher layers.
+In the [next part of the series]({% link _pages/part6.md %}), we will finally get a chance to talk about the final 3 layers of the network stack. Despite being separate layers in the OSI model, most of the time the final three layers are all collapsed into Layer 7, the Application Layer, with the responsibilities of the layers in between divided up into lower or higher layers.
