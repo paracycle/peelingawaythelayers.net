@@ -16,7 +16,7 @@ gem "minima", "~> 2.5"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
-  gem "jekyll-postcss"
+  gem "jekyll-postcss-v2"
   gem "jekyll-purgecss"
   gem "jekyll-seo-tag"
   gem "jekyll-minifier"
@@ -32,3 +32,5 @@ end
 
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
+
+gem "webrick", "~> 1.8"

@@ -37,7 +37,7 @@ livereload: true
 markdown: Pandoc
 plugins:
   - jekyll-feed
-  - jekyll-postcss
+  - jekyll-postcss-v2
   - jekyll-purgecss
   - jekyll-minifier
   - jekyll-seo-tag

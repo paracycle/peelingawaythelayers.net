@@ -43,7 +43,7 @@ GEM
     jekyll-pandoc (2.0.1)
       jekyll (>= 3.0)
       pandoc-ruby (~> 2.0, >= 2.0.0)
-    jekyll-postcss (0.5.0)
+    jekyll-postcss-v2 (1.0.2)
     jekyll-purgecss (0.3.0)
     jekyll-sass-converter (2.2.0)
       sassc (> 2.0.1, < 3.0)
@@ -90,6 +90,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.8.0)
     wdm (0.1.1)
+    webrick (1.8.1)
 
 PLATFORMS
   ruby
@@ -99,13 +100,14 @@ DEPENDENCIES
   jekyll-feed (~> 0.12)
   jekyll-minifier
   jekyll-pandoc
-  jekyll-postcss
+  jekyll-postcss-v2
   jekyll-purgecss
   jekyll-seo-tag
   minima (~> 2.5)
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)
+  webrick (~> 1.8)
 
 BUNDLED WITH
    2.5.7

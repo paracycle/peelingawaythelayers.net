@@ -5,7 +5,7 @@
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "/assets/css/github.css";
+@import "./github.css";
 
 /* Write your styles below this line. */
 
