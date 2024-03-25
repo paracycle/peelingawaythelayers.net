@@ -2,10 +2,13 @@
 ---
 /* Front matter is necessary for Jekyll */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Lato:wght@400;700&display=swap');
-
-@import "tailwindcss/base";
-@import "tailwindcss/components";
 @import "./github.css";
+
+@tailwind base;
+
+@tailwind components;
+/* @import "tailwindcss/base";
+@import "tailwindcss/components"; */
 
 /* Write your styles below this line. */
 

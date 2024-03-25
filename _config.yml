@@ -91,3 +91,7 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+
+postcss:
+  script: node_modules/.bin/postcss
+  config: postcss.config.js
