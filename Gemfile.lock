@@ -15,6 +15,16 @@ GEM
     eventmachine (1.2.7)
     execjs (2.10.1)
     ffi (1.17.4)
+    ffi (1.17.4-aarch64-linux-gnu)
+    ffi (1.17.4-aarch64-linux-musl)
+    ffi (1.17.4-arm-linux-gnu)
+    ffi (1.17.4-arm-linux-musl)
+    ffi (1.17.4-arm64-darwin)
+    ffi (1.17.4-x86-linux-gnu)
+    ffi (1.17.4-x86-linux-musl)
+    ffi (1.17.4-x86_64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
+    ffi (1.17.4-x86_64-linux-musl)
     forwardable-extended (2.6.0)
     htmlcompressor (0.4.0)
     http_parser.rb (0.8.1)
@@ -88,17 +98,21 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     terser (1.2.7)
       execjs (>= 0.3.0, < 3)
-    thread_safe (0.3.6)
-    tzinfo (1.2.11)
-      thread_safe (~> 0.1)
-    tzinfo-data (1.2026.2)
-      tzinfo (>= 1.0.0)
     unicode-display_width (1.8.0)
-    wdm (0.1.1)
     webrick (1.9.2)
 
 PLATFORMS
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
   ruby
+  x86-linux-gnu
+  x86-linux-musl
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   base64 (~> 0.3.0)
