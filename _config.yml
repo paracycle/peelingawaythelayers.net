@@ -34,6 +34,7 @@ livereload: true
 
 # Build settings
 # theme: minima
+encoding: utf-8
 markdown: Pandoc
 plugins:
   - jekyll-feed
