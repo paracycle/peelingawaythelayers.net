@@ -92,7 +92,6 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - assets/
 
 postcss:
   script: node_modules/.bin/postcss
